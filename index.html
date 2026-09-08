@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mescla - Sorvetes, açaís, hambúrgueres e pizzas. O sabor inconfundível para matar sua fome. Faça seu pedido agora!">
+    <title>Mescla | Sabor Inconfundível</title>
+    <link rel="preload" as="image" href="img/hero_new.webp" fetchpriority="high">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    
+    <!-- Pré-conexão para fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mescla: {
+                            brown: '#5c3a21', // Cor Primária
+                            orange: '#f38b2b', // Cor Secundária
+                            dark: '#3e2615',
+                            light: '#fdf8f4',
+                            surface: '#ffffff'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Open Graph / WhatsApp Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Mescla | Sabor Inconfundível">
+    <meta property="og:description" content="Sorvetes, açaís, hambúrgueres e pizzas. O sabor inconfundível para matar sua fome. Faça seu pedido agora!">
+    <meta property="og:image" content="https://sorveteriamescla.com.br/img/hero_new.jpg">
+    <meta property="og:url" content="https://sorveteriamescla.com.br">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Toast */
+        #toast {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+    
+        /* Imagens mais atraentes */
+        .food-image {
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
+            filter: contrast(1.05) saturate(1.15) brightness(1.02);
+        }
+        .group:hover .food-image {
+            transform: scale(1.08) rotate(-1deg);
+            filter: contrast(1.1) saturate(1.25) brightness(1.05);
+        }
+        .hero-glow {
+            box-shadow: 0 20px 50px -10px rgba(243, 139, 43, 0.3), 0 0 30px rgba(92, 58, 33, 0.2);
+        }
+        .image-backdrop {
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.03);
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Mescla",
+      "image": "https://sorveteriamescla.com.br/img/hero_new.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "R. Manoel de Souza Pedrosa, 2",
+        "addressLocality": "Jericó",
+        "addressRegion": "PB",
+        "postalCode": "58830-000",
+        "addressCountry": "BR"
+      },
+      "telephone": "+5583996534532",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Monday"],
+          "opens": "14:00",
+          "closes": "22:00"
+        }
+      ],
+      "servesCuisine": ["Sorvetes", "Açaí", "Hambúrgueres", "Pizzas"]
+    }
+    </script>
+    </head>
+<body class="font-sans text-stone-800 bg-mescla-light antialiased pt-20">
+
+    <!-- Navegação -->
+    <nav class="fixed w-full top-0 z-50 bg-mescla-light/95 backdrop-blur-sm border-b border-stone-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="font-extrabold text-3xl text-mescla-brown tracking-tighter">MESCLA</div>
+            <div class="hidden md:flex gap-8 font-medium text-stone-600">
+                <a href="#solucao" class="hover:text-mescla-orange transition-colors focus:outline-none focus:ring-2 focus:ring-mescla-orange rounded px-2 py-1">Vantagens</a>
+                <a href="#cardapio" class="hover:text-mescla-orange transition-colors focus:outline-none focus:ring-2 focus:ring-mescla-orange rounded px-2 py-1">Cardápio</a>
+                <a href="#depoimentos" class="hover:text-mescla-orange transition-colors focus:outline-none focus:ring-2 focus:ring-mescla-orange rounded px-2 py-1">Depoimentos</a>
+                <a href="#como-funciona" class="hover:text-mescla-orange transition-colors focus:outline-none focus:ring-2 focus:ring-mescla-orange rounded px-2 py-1">Como Funciona</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-mescla-brown p-2 rounded-lg hover:bg-stone-100 transition-colors" aria-label="Menu">
+                    <svg id="menu-icon-open" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    <svg id="menu-icon-close" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            <a href="#cta" class="bg-mescla-orange text-white px-6 py-2.5 rounded-full font-semibold hover:bg-orange-500 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-orange-300">
+                Fazer Pedido
+            </a>
+            </div>
+        </div>
+        <!-- Mobile menu dropdown -->
+        <div id="mobile-menu" class="md:hidden hidden bg-mescla-light border-t border-stone-200">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#solucao" onclick="closeMobileMenu()" class="block py-2 px-4 rounded-lg text-stone-600 font-medium hover:bg-stone-100 hover:text-mescla-orange transition-colors">Vantagens</a>
+                <a href="#cardapio" onclick="closeMobileMenu()" class="block py-2 px-4 rounded-lg text-stone-600 font-medium hover:bg-stone-100 hover:text-mescla-orange transition-colors">Cardápio</a>
+                <a href="#depoimentos" onclick="closeMobileMenu()" class="block py-2 px-4 rounded-lg text-stone-600 font-medium hover:bg-stone-100 hover:text-mescla-orange transition-colors">Depoimentos</a>
+                <a href="#como-funciona" onclick="closeMobileMenu()" class="block py-2 px-4 rounded-lg text-stone-600 font-medium hover:bg-stone-100 hover:text-mescla-orange transition-colors">Como Funciona</a>
+                <a href="https://www.instagram.com/sorveteriamescla" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 py-2 px-4 rounded-lg text-stone-600 font-medium hover:bg-stone-100 hover:text-mescla-orange transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    Instagram
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. Seção Hero -->
+    <header class="relative overflow-hidden bg-mescla-light">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12 md:pt-16 md:pb-24 lg:pt-32 lg:pb-36 flex flex-col lg:flex-row items-center gap-8 md:gap-12">
+            
+            <div class="flex-1 text-center lg:text-left z-10">
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-mescla-brown leading-tight mb-6">
+                    Sabor Inconfundível Para Seus Melhores Momentos
+                </h1>
+                <p class="text-lg sm:text-xl text-stone-600 mb-8 max-w-2xl mx-auto lg:mx-0">
+                    Hambúrgueres suculentos, pizzas quentinhas, açaís refrescantes e sorvetes deliciosos. Peça agora e transforme seu dia.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#cta" class="bg-mescla-orange text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-orange-500 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-2 focus:outline-none focus:ring-4 focus:ring-orange-300">
+                        Quero Fazer Meu Pedido
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                        <a href="#cardapio" class="border-2 border-mescla-brown text-mescla-brown px-8 py-4 rounded-full font-bold text-lg hover:bg-mescla-brown hover:text-white transition-colors flex items-center justify-center gap-2">
+                            Ver Cardápio
+                        </a>
+                </div>
+            </div>
+            
+            <div class="flex-1 relative w-full max-w-lg lg:max-w-none">
+                <div class="absolute inset-0 bg-gradient-to-tr from-mescla-orange/30 to-mescla-brown/20 rounded-full blur-[80px] scale-125 -z-10 animate-pulse" style="animation-duration: 4s;"></div>
+                <div class="relative overflow-hidden rounded-2xl border-4 border-white transform rotate-2 hover:rotate-0 transition-all duration-500 hero-glow z-10 group">
+                    <img src="img/hero_new.webp" alt="Pizzas e Hambúrgueres Mescla" class="w-full h-auto object-cover food-image">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. Seção Problema -->
+    <section id="problema" class="py-12 md:py-24 bg-mescla-brown text-white relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Bateu Aquela Fome e a Dúvida do Que Comer?</h2>
+            <p class="text-lg md:text-xl text-mescla-light/80 mb-8">
+                Você quer algo delicioso, mas a galera não decide se prefere doce ou salgado. O tempo vai passando, o delivery demora e a fome só aumenta. Não deixe a indecisão estragar sua noite.
+            </p>
+            <div class="inline-block border-b-2 border-mescla-orange pb-1 text-mescla-orange font-semibold uppercase tracking-wider text-sm">
+                Nós temos a solução perfeita
+            </div>
+        </div>
+        <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 80" fill="none" preserveAspectRatio="none" style="height: 60px;">
+          <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#FFFFFF"></path>
+        </svg>
+    </section>
+
+    <!-- 3. Seção Solução -->
+<section id="solucao" class="py-12 md:py-24 bg-white relative" style="background-image: radial-gradient(circle, #5c3a2110 1px, transparent 1px); background-size: 24px 24px;">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-mescla-brown mb-4">A Mescla Tem Tudo Que Você Deseja</h2>
+                <p class="text-lg text-stone-600">Acabe com a indecisão. Oferecemos um cardápio completo para todos os gostos em um só lugar, entregue rapidamente.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+                <!-- Benefício 1 -->
+                <div class="text-center group">
+                    <div class="w-20 h-20 mx-auto bg-mescla-light rounded-2xl flex items-center justify-center mb-6 text-mescla-orange group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-mescla-brown mb-3">Sabor que Surpreende</h3>
+                    <p class="text-stone-600">Ingredientes selecionados e preparo artesanal que garantem uma experiência única e deliciosa a cada mordida.</p>
+                </div>
+
+                <!-- Benefício 2 -->
+                <div class="text-center group">
+                    <div class="w-20 h-20 mx-auto bg-mescla-light rounded-2xl flex items-center justify-center mb-6 text-mescla-orange group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-mescla-brown mb-3">Entrega Rápida</h3>
+                    <p class="text-stone-600">Sua comida chega quentinha (ou geladinha, no caso do sorvete!) no conforto da sua casa, sem complicação e sem demora.</p>
+                </div>
+
+                <!-- Benefício 3 -->
+                <div class="text-center group">
+                    <div class="w-20 h-20 mx-auto bg-mescla-light rounded-2xl flex items-center justify-center mb-6 text-mescla-orange group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-mescla-brown mb-3">Opções Para Todos</h3>
+                    <p class="text-stone-600">Do hambúrguer suculento e pizza saborosa à sobremesa perfeita. Agradamos a família inteira em um único pedido.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cardápio -->
+    <section id="cardapio" class="py-12 md:py-24 bg-mescla-light relative" style="background-image: radial-gradient(circle, #5c3a2110 1px, transparent 1px); background-size: 24px 24px;">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-mescla-brown mb-16">Nosso Cardápio</h2>
+            
+            <div class="space-y-16">
+                <!-- Categoria: Sobremesas -->
+                <div>
+                    <h3 class="text-2xl font-bold text-mescla-orange border-b-2 border-mescla-orange/30 pb-2 mb-8 block w-fit mx-auto">🍧 Sobremesas Irresistíveis</h3>
+                    <div class="aspect-video w-full max-w-md mx-auto rounded-xl overflow-hidden shadow-sm mb-8">
+                        <img src="img/categoria-sobremesas.jpg" alt="Taça de sorvete com chantilly e cereja" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        
+                        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden flex flex-col hover:shadow-2xl hover:shadow-mescla-orange/20 hover:-translate-y-2 transition-all duration-300 group">
+                            <div class="aspect-[4/5] w-full relative overflow-hidden flex items-center justify-center">
+                                <div class="absolute inset-0 bg-[url('img/trufada_new.webp')] bg-cover bg-center blur-2xl scale-125 opacity-90"></div>
+                                <div class="absolute inset-0 bg-black/10"></div>
+                                <img loading="lazy" src="img/trufada_new.webp" alt="Taça Trufada" class="relative z-10 w-full h-full object-contain object-center food-image drop-shadow-xl">
+                            </div>
+                            <div class="p-6 flex-1">
+                                <div class="flex justify-between items-start mb-4">
+                                    <h4 class="text-xl font-bold text-mescla-brown">Taça Trufada</h4>
+                                    <div class="flex items-center gap-2">
+                                        <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm">R$ 20,00</span>
+                                        <button onclick="addToCart('Taça Trufada', 20.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title='Adicionar'>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <ul class="text-sm text-stone-600 space-y-1 list-disc list-inside">
+                                    <li>2 Bolas de sorvete</li>
+                                    <li>Brigadeiro de chocolate ao leite (50g)</li>
+                                    <li>Amendoim triturado</li>
+                                    <li>Disquetes de chocolate</li>
+                                    <li>Bombom Sonho de Valsa</li>
+                                    <li>KitKat</li>
+                                    <li>Canudo recheado sabor chocolate</li>
+                                    <li>1 Morango trufado</li>
+                                    <li>Biscoitinho da casa</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden flex flex-col hover:shadow-2xl hover:shadow-mescla-orange/20 hover:-translate-y-2 transition-all duration-300 group">
+                            <div class="aspect-[4/5] w-full relative overflow-hidden flex items-center justify-center">
+                                <div class="absolute inset-0 bg-[url('img/kitkat_new.webp')] bg-cover bg-center blur-2xl scale-125 opacity-90"></div>
+                                <div class="absolute inset-0 bg-black/10"></div>
+                                <img loading="lazy" src="img/kitkat_new.webp" alt="Taça KitKat" class="relative z-10 w-full h-full object-contain object-center food-image drop-shadow-xl">
+                            </div>
+                            <div class="p-6 flex-1">
+                                <div class="flex justify-between items-start mb-4">
+                                    <h4 class="text-xl font-bold text-mescla-brown">Taça KitKat</h4>
+                                    <div class="flex items-center gap-2">
+                                        <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm">R$ 20,00</span>
+                                        <button onclick="addToCart('Taça KitKat', 20.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title='Adicionar'>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <ul class="text-sm text-stone-600 space-y-1 list-disc list-inside">
+                                    <li>2 Bolas de sorvete</li>
+                                    <li>Brigadeiro de chocolate ao leite (100g)</li>
+                                    <li>KitKat</li>
+                                    <li>1 Morango trufado</li>
+                                    <li>Biscoitinho da casa</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden flex flex-col hover:shadow-2xl hover:shadow-mescla-orange/20 hover:-translate-y-2 transition-all duration-300 group">
+                            <div class="aspect-[4/5] w-full relative overflow-hidden flex items-center justify-center">
+                                <div class="absolute inset-0 bg-[url('img/oreo_new.webp')] bg-cover bg-center blur-2xl scale-125 opacity-90"></div>
+                                <div class="absolute inset-0 bg-black/10"></div>
+                                <span class="absolute top-3 left-3 z-10 bg-mescla-orange text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                                    ⭐ Mais Pedido
+                                </span>
+<img loading="lazy" src="img/oreo_new.webp" alt="Taça Oreo" class="relative z-10 w-full h-full object-contain object-center food-image drop-shadow-xl">
+                            </div>
+                            <div class="p-6 flex-1">
+                                <div class="flex justify-between items-start mb-4">
+                                    <h4 class="text-xl font-bold text-mescla-brown">Taça Oreo</h4>
+                                    <div class="flex items-center gap-2">
+                                        <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm">R$ 20,00</span>
+                                        <button onclick="addToCart('Taça Oreo', 20.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title='Adicionar'>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <ul class="text-sm text-stone-600 space-y-1 list-disc list-inside">
+                                    <li>2 Bolas de sorvete</li>
+                                    <li>Brigadeiro</li>
+                                    <li>Brigadeiro branco</li>
+                                    <li>Biscoito Oreo</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden flex flex-col hover:shadow-2xl hover:shadow-mescla-orange/20 hover:-translate-y-2 transition-all duration-300 group">
+                            <div class="aspect-[4/5] w-full relative overflow-hidden flex items-center justify-center">
+                                <div class="absolute inset-0 bg-[url('img/galak_new.webp')] bg-cover bg-center blur-2xl scale-125 opacity-90"></div>
+                                <div class="absolute inset-0 bg-black/10"></div>
+                                <img loading="lazy" src="img/galak_new.webp" alt="Taça Galak" class="relative z-10 w-full h-full object-contain object-center food-image drop-shadow-xl">
+                            </div>
+                            <div class="p-6 flex-1">
+                                <div class="flex justify-between items-start mb-4">
+                                    <h4 class="text-xl font-bold text-mescla-brown">Taça Galak</h4>
+                                    <div class="flex items-center gap-2">
+                                        <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm">R$ 20,00</span>
+                                        <button onclick="addToCart('Taça Galak', 20.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title='Adicionar'>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <ul class="text-sm text-stone-600 space-y-1 list-disc list-inside">
+                                    <li>2 Bolas de sorvete</li>
+                                    <li>Brigadeiro (50g)</li>
+                                    <li>Chocolate Galak (50g)</li>
+                                    <li>1 Morango trufado</li>
+                                    <li>1 Biscoitinho da casa</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden flex flex-col hover:shadow-2xl hover:shadow-mescla-orange/20 hover:-translate-y-2 transition-all duration-300 group">
+                            <div class="aspect-[4/5] w-full relative overflow-hidden flex items-center justify-center">
+                                <div class="absolute inset-0 bg-[url('img/brownie_new.webp')] bg-cover bg-center blur-2xl scale-125 opacity-90"></div>
+                                <div class="absolute inset-0 bg-black/10"></div>
+                                <img loading="lazy" src="img/brownie_new.webp" alt="Brownie" class="relative z-10 w-full h-full object-contain object-center food-image drop-shadow-xl">
+                            </div>
+                            <div class="p-6 flex-1">
+                                <div class="flex justify-between items-start mb-4">
+                                    <h4 class="text-xl font-bold text-mescla-brown">Brownie</h4>
+                                    <div class="flex items-center gap-2">
+                                        <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm">R$ 15,00</span>
+                                        <button onclick="addWithFlavor('Brownie', 15.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title='Adicionar'>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <ul class="text-sm text-stone-600 space-y-1 list-disc list-inside">
+                                    <li>Sorvete</li>
+                                    <li>Brownie</li>
+                                    <li>Brigadeiro</li>
+                                    <li>Biscoito da casa</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden flex flex-col hover:shadow-2xl hover:shadow-mescla-orange/20 hover:-translate-y-2 transition-all duration-300 group">
+                            <div class="aspect-[4/5] w-full relative overflow-hidden flex items-center justify-center">
+                                <div class="absolute inset-0 bg-[url('img/petit_new.webp')] bg-cover bg-center blur-2xl scale-125 opacity-90"></div>
+                                <div class="absolute inset-0 bg-black/10"></div>
+                                <img loading="lazy" src="img/petit_new.webp" alt="Petit Gateau" class="relative z-10 w-full h-full object-contain object-center food-image drop-shadow-xl">
+                            </div>
+                            <div class="p-6 flex-1">
+                                <div class="flex justify-between items-start mb-4">
+                                    <h4 class="text-xl font-bold text-mescla-brown">Petit Gateau</h4>
+                                    <div class="flex items-center gap-2">
+                                        <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm">R$ 15,00</span>
+                                        <button onclick="addWithFlavor('Petit Gateau', 15.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title='Adicionar'>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <ul class="text-sm text-stone-600 space-y-1 list-disc list-inside">
+                                    <li>Sorvete</li>
+                                    <li>Petit Gateau</li>
+                                    <li>Brigadeiro</li>
+                                    <li>Morango</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Categoria: Sorvetes -->
+                <div>
+                    <h3 class="text-2xl font-bold text-mescla-orange border-b-2 border-mescla-orange/30 pb-2 mb-8 block w-fit mx-auto">🍦 Sorvetes & Sabores</h3>
+                    <div class="aspect-video w-full max-w-md mx-auto rounded-xl overflow-hidden shadow-sm mb-8">
+                        <img src="img/categoria-sorvetes.jpg" alt="Casquinha de sorvete com três sabores" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6 md:p-8">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-6 gap-4 sm:gap-0">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-mescla-brown">Na Bola</h4>
+                                    <p class="text-stone-500 text-sm mt-1">Cascão Cesta: + R$ 2,00 <button onclick="addCascao(2.00)" class="ml-2 bg-mescla-orange text-white p-1 rounded-full hover:bg-orange-500 transition-colors shadow-sm" title="Adicionar Cascão"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></button></p>
+                                </div>
+                                <div class="flex items-center gap-2">
+            <span class="bg-mescla-orange text-white font-bold px-4 py-2 rounded-full">R$ 4,00 <span class="text-sm font-normal">/bola</span></span>
+            <button onclick="addWithFlavor('Sorvete na Bola', 4.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-2 rounded-full transition-colors shadow-sm" title='Adicionar'>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            </button>
+        </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-stone-600">
+                                <div>• Abacaxi</div>
+                                <div>• Brownie</div>
+                                <div>• Charge</div>
+                                <div>• Ninho com Nutella</div>
+                                <div>• Cheesecake de Morango</div>
+                                <div>• Creme com Passas</div>
+                                <div>• Chocolate</div>
+                                <div>• Capuccino</div>
+                                <div>• Doce de Leite</div>
+                                <div>• Morango</div>
+                                <div>• Nata Uva</div>
+                                <div>• Nata Goiaba</div>
+                                <div>• Oreo</div>
+                                <div>• Ouro Branco</div>
+                                <div>• Pavê</div>
+                                <div>• Sangria de Morango</div>
+                                <div>• Sensação Trufado</div>
+                                <div>• Sonho de Valsa</div>
+                                <div>• Torta Limão</div>
+                                <div>• Flocos</div>
+                                <div>• Mousse de Maracujá</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-8">
+                            <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h4 class="text-xl font-bold text-mescla-brown">Pote 1L - Tradicional</h4>
+                                    <div class="flex items-center gap-2">
+                                        <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm">R$ 20,00</span>
+                                        <button onclick="addPoteTradicional('Pote 1L - Tradicional', 20.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title='Adicionar'>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm text-stone-600">
+                                    <div>• Abacaxi + Cocada</div>
+                                    <div>• Abacaxi + Nata Goiaba</div>
+                                    <div>• Chocolate + Morango</div>
+                                    <div>• Duo Chocolate</div>
+                                    <div>• Flocos + Creme c/ Passas</div>
+                                    <div>• Nata Uva</div>
+                                    <div>• Paçoca + Nata Goiaba</div>
+                                    <div>• Sonho de Valsa</div>
+                                    <div>• Oreo + Morango</div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h4 class="text-xl font-bold text-mescla-brown">Pote 1L - Premium</h4>
+                                    <div class="flex items-center gap-2">
+                                        <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm">R$ 24,00</span>
+                                        <button onclick="addPotePremium('Pote 1L - Premium', 24.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title='Adicionar'>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm text-stone-600">
+                                    <div>• Charge</div>
+                                    <div>• Brownie</div>
+                                    <div>• Doce de Leite</div>
+                                    <div>• Ninho com Nutella</div>
+                                    <div>• Sensação Trufado</div>
+                                    <div>• Floresta Negra</div>
+                                    <div>• Mousse de Maracujá</div>
+                                    <div>• Ouro Branco</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoria: Shakes e Açaís -->
+                <div>
+                    <h3 class="text-2xl font-bold text-mescla-orange border-b-2 border-mescla-orange/30 pb-2 mb-8 block w-fit mx-auto">🥤 Milk Shakes & Açaís</h3>
+                    <div class="aspect-video w-full max-w-md mx-auto rounded-xl overflow-hidden shadow-sm mb-8">
+                        <img src="img/categoria-milkshakes.jpg" alt="Milk shake com chantilly e tigela de açaí" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
+                            <h4 class="text-2xl font-bold text-mescla-brown mb-6">Milk Shake</h4>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="flex-1 bg-mescla-light p-4 rounded-xl text-center relative group">
+                                    <p class="font-bold text-mescla-orange text-lg">400 ML</p>
+                                    <p class="text-stone-600 font-semibold mt-1">R$ 15,00</p>
+                                    <button onclick="addMilkShake('Milk Shake 400 ML', 15.00)" class="absolute -top-3 -right-3 bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-md hidden group-hover:block sm:block" title='Adicionar'>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                    </button>
+                                </div>
+                                <div class="flex-1 bg-mescla-light p-4 rounded-xl text-center relative group">
+                                    <p class="font-bold text-mescla-orange text-lg">500 ML</p>
+                                    <p class="text-stone-600 font-semibold mt-1">R$ 16,00</p>
+                                    <button onclick="addMilkShake('Milk Shake 500 ML', 16.00)" class="absolute -top-3 -right-3 bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-md hidden group-hover:block sm:block" title='Adicionar'>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
+                            <h4 class="text-2xl font-bold text-mescla-brown mb-6">Açaís</h4>
+                            
+                            <div class="mb-6">
+                                <h5 class="font-bold text-lg text-stone-700 mb-3 border-b pb-1">Batido</h5>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-2">
+                                    <div class="bg-mescla-light p-2 rounded-lg text-center relative group">
+                                        <p class="text-xs font-bold text-mescla-orange">300 ML</p>
+                                        <p class="text-sm font-semibold text-stone-600">R$ 13,00</p>
+                                        <button onclick="addToCart('Açaí Batido 300 ML', 13.00)" class="absolute -top-2 -right-2 bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm hidden group-hover:block sm:block" title='Adicionar'>
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                    <div class="bg-mescla-light p-2 rounded-lg text-center relative group">
+                                        <p class="text-xs font-bold text-mescla-orange">400 ML</p>
+                                        <p class="text-sm font-semibold text-stone-600">R$ 15,00</p>
+                                        <button onclick="addToCart('Açaí Batido 400 ML', 15.00)" class="absolute -top-2 -right-2 bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm hidden group-hover:block sm:block" title='Adicionar'>
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                    <div class="bg-mescla-light p-2 rounded-lg text-center relative group">
+                                        <p class="text-xs font-bold text-mescla-orange">500 ML</p>
+                                        <p class="text-sm font-semibold text-stone-600">R$ 16,00</p>
+                                        <button onclick="addToCart('Açaí Batido 500 ML', 16.00)" class="absolute -top-2 -right-2 bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm hidden group-hover:block sm:block" title='Adicionar'>
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h5 class="font-bold text-lg text-stone-700 mb-2 border-b pb-1 flex justify-between items-end">
+                                    <span>Tigela</span>
+                                    <div class="flex items-center gap-2">
+            <span class="text-xs text-stone-500 font-normal">A partir de R$ 12,00</span>
+            <button onclick="addAcai('Açaí na Tigela', 12.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title='Adicionar'>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            </button>
+        </div>
+                                </h5>
+                                <div class="grid grid-cols-2 gap-1 text-xs text-stone-600 mt-2">
+                                    <div>• Creme de ninho</div>
+                                    <div>• Granola</div>
+                                    <div>• Amendoim triturado</div>
+                                    <div>• Leite em pó</div>
+                                    <div>• Farinha Láctea</div>
+                                    <div>• Kiwi</div>
+                                    <div>• M&M</div>
+                                    <div>• Banana</div>
+                                    <div>• Amendoim inteiro</div>
+                                    <div>• Uva</div>
+                                    <div></div>
+                                    <div>• Leite condensado</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoria: Hambúrgueres -->
+                <div>
+                    <h3 class="text-2xl font-bold text-mescla-orange border-b-2 border-mescla-orange/30 pb-2 mb-8 block w-fit mx-auto">🍔 Hambúrgueres</h3>
+                    <div class="aspect-video w-full max-w-md mx-auto rounded-xl overflow-hidden shadow-sm mb-8">
+                        <img src="img/categoria-hamburgueres.jpg" alt="Hambúrguer artesanal em corte transversal" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="md:col-span-2 space-y-4">
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
+                                <div>
+                                    <h4 class="font-bold text-lg text-mescla-brown">Hambúrguer Simples</h4>
+                                    <p class="text-sm text-stone-500 mt-1">Carne industrializada, queijo, presunto, tomate e alface.</p>
+                                </div>
+                                <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:ml-4 border-t sm:border-0 border-stone-100 pt-3 sm:pt-0 mt-2 sm:mt-0">
+                                    <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm whitespace-nowrap">R$ 10,00</span>
+                                    <button onclick="addToCart('Hambúrguer Simples', 10.00, true)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title='Adicionar'>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
+                                <div>
+                                    <h4 class="font-bold text-lg text-mescla-brown">Hambúrguer Artesanal</h4>
+                                    <p class="text-sm text-stone-500 mt-1">Carne artesanal (100g), queijo, presunto, tomate e alface.</p>
+                                </div>
+                                <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:ml-4 border-t sm:border-0 border-stone-100 pt-3 sm:pt-0 mt-2 sm:mt-0">
+                                    <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm whitespace-nowrap">R$ 14,00</span>
+                                    <button onclick="addToCart('Hambúrguer Artesanal', 14.00, true)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title='Adicionar'>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
+                                <div>
+                                    <h4 class="font-bold text-lg text-mescla-brown">Hambúrguer Nordestino</h4>
+                                    <p class="text-sm text-stone-500 mt-1">Carne artesanal (100g), Carne de sol na nata, Queijo coalho, Ovo, Tomate e alface.</p>
+                                </div>
+                                <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:ml-4 border-t sm:border-0 border-stone-100 pt-3 sm:pt-0 mt-2 sm:mt-0">
+                                    <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm whitespace-nowrap">R$ 21,00</span>
+                                    <button onclick="addToCart('Hambúrguer Nordestino', 21.00, true)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title='Adicionar'>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
+                                <div>
+                                    <h4 class="font-bold text-lg text-mescla-brown">American Burguer</h4>
+                                    <p class="text-sm text-stone-500 mt-1">2 carnes artesanais (200g), Bacon duplo e Molho Cheddar.</p>
+                                </div>
+                                <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:ml-4 border-t sm:border-0 border-stone-100 pt-3 sm:pt-0 mt-2 sm:mt-0">
+                                    <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm whitespace-nowrap">R$ 24,00</span>
+                                    <button onclick="addToCart('American Burguer', 24.00, true)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
+                                <div>
+                                    <h4 class="font-bold text-lg text-mescla-brown">Pai D'égua</h4>
+                                    <p class="text-sm text-stone-500 mt-1">Carne de sol na nata, Queijo coalho, Salada e Presunto.</p>
+                                </div>
+                                <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:ml-4 border-t sm:border-0 border-stone-100 pt-3 sm:pt-0 mt-2 sm:mt-0">
+                                    <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm whitespace-nowrap">R$ 21,00</span>
+                                    <button onclick="addToCart('Pai D\'égua', 21.00, true)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
+                                <div>
+                                    <h4 class="font-bold text-lg text-mescla-brown">Fricassê de Frango</h4>
+                                    <p class="text-sm text-stone-500 mt-1">Fricassê de frango, Batata palha, salada e Presunto.</p>
+                                </div>
+                                <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:ml-4 border-t sm:border-0 border-stone-100 pt-3 sm:pt-0 mt-2 sm:mt-0">
+                                    <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm whitespace-nowrap">R$ 19,00</span>
+                                    <button onclick="addToCart('Fricassê de Frango', 19.00, true)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
+                                <div>
+                                    <h4 class="font-bold text-lg text-mescla-brown">Big Chicken</h4>
+                                    <p class="text-sm text-stone-500 mt-1">Nuggets de frango, Fatia de cheddar, Frango cremoso desfiado, Presunto e salada.</p>
+                                </div>
+                                <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:ml-4 border-t sm:border-0 border-stone-100 pt-3 sm:pt-0 mt-2 sm:mt-0">
+                                    <span class="bg-mescla-orange text-white font-bold px-3 py-1 rounded-full text-sm whitespace-nowrap">R$ 19,00</span>
+                                    <button onclick="addToCart('Big Chicken', 19.00, true)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1.5 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Adicionais -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
+                            <h4 class="text-xl font-bold text-mescla-brown mb-4 border-b pb-2">Adicionais</h4>
+                            <ul class="space-y-3">
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Ovo</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 2,00</span>
+                                        <button onclick="addAdicional('Ovo', 2.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Cheddar (Fatia)</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 2,00</span>
+                                        <button onclick="addAdicional('Cheddar (Fatia)', 2.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Bacon</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 3,50</span>
+                                        <button onclick="addAdicional('Bacon', 3.50)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Calabresa</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 3,50</span>
+                                        <button onclick="addAdicional('Calabresa', 3.50)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Frango Cremoso</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 4,50</span>
+                                        <button onclick="addAdicional('Frango Cremoso', 4.50)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Carne Industrializada</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 4,50</span>
+                                        <button onclick="addAdicional('Carne Industrializada', 4.50)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Carne Artesanal</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 7,00</span>
+                                        <button onclick="addAdicional('Carne Artesanal', 7.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Molho Cheddar</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 4,00</span>
+                                        <button onclick="addAdicional('Molho Cheddar', 4.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoria: Pizzas e Bebidas -->
+                <div>
+                    <h3 class="text-2xl font-bold text-mescla-orange border-b-2 border-mescla-orange/30 pb-2 mb-8 block w-fit mx-auto">🍕 Pizzas & Bebidas</h3>
+                    <div class="aspect-video w-full max-w-md mx-auto rounded-xl overflow-hidden shadow-sm mb-8">
+                        <img src="img/categoria-pizzas.jpg" alt="Fatia de pizza ao lado de um copo de refrigerante" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="md:col-span-2 bg-white rounded-2xl shadow-sm border border-stone-100 p-6 md:p-8">
+                            <div class="flex flex-col sm:flex-row justify-between items-center sm:items-end mb-6 gap-4">
+                                <h4 class="text-2xl font-bold text-mescla-brown">Pizzas</h4>
+                                <div class="flex gap-2">
+                                    <div class="bg-mescla-light px-3 py-1 rounded-lg text-center relative group">
+<span class="block text-xs font-bold">M</span>
+<span class="text-sm font-semibold text-mescla-orange">R$ 40,00</span>
+<button onclick="openPizzaModal('M', 40.00)" class="absolute -top-2 -right-2 bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm hidden group-hover:block sm:block" title='Adicionar'>
+<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+</button>
+</div>
+                                    <div class="bg-mescla-light px-3 py-1 rounded-lg text-center relative group">
+<span class="block text-xs font-bold">G</span>
+<span class="text-sm font-semibold text-mescla-orange">R$ 48,00</span>
+<button onclick="openPizzaModal('G', 48.00)" class="absolute -top-2 -right-2 bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm hidden group-hover:block sm:block" title='Adicionar'>
+<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+</button>
+</div>
+                                    <div class="bg-mescla-light px-3 py-1 rounded-lg text-center relative group">
+<span class="block text-xs font-bold">F</span>
+<span class="text-sm font-semibold text-mescla-orange">R$ 53,00</span>
+<button onclick="openPizzaModal('F', 53.00)" class="absolute -top-2 -right-2 bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm hidden group-hover:block sm:block" title='Adicionar'>
+<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+</button>
+</div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-stone-500 font-bold uppercase mb-6 bg-stone-100 inline-block px-2 py-1 rounded">Obs: Mais de 2 sabores apenas no tamanho Família</p>
+
+                            <div class="grid sm:grid-cols-2 gap-x-6 gap-y-4">
+                                <div>
+                                    <h5 class="font-bold text-stone-800 text-sm">Frango com Cheddar</h5>
+                                    <p class="text-xs text-stone-500">Molho, mussarela, frango, cheddar, milho, azeitona e orégano.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-stone-800 text-sm">Frango com Catupiry</h5>
+                                    <p class="text-xs text-stone-500">Molho, frango, mussarela, catupiry, azeitona, orégano e milho.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-stone-800 text-sm">Calabresa</h5>
+                                    <p class="text-xs text-stone-500">Molho, mussarela, calabresa, cebola, azeitona e orégano.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-stone-800 text-sm">Frango</h5>
+                                    <p class="text-xs text-stone-500">Molho, mussarela, creme de leite, frango, azeitona, orégano e milho.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-stone-800 text-sm">Calabresa Cremosa</h5>
+                                    <p class="text-xs text-stone-500">Molho, mussarela, calabresa, cebola, creme de leite e orégano.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-stone-800 text-sm">Mussarela</h5>
+                                    <p class="text-xs text-stone-500">Molho, mussarela, tomate e orégano.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-stone-800 text-sm">Portuguesa</h5>
+                                    <p class="text-xs text-stone-500">Molho, mussarela, presunto, milho, ovo, azeitona e orégano.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-stone-800 text-sm">Quatro Queijos</h5>
+                                    <p class="text-xs text-stone-500">Molho, mussarela, queijo coalho, catupiry, cheddar e orégano.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-stone-800 text-sm">Chocolate Especial</h5>
+                                    <p class="text-xs text-stone-500">Brigadeiro com M&M's.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-stone-800 text-sm">Nordestina</h5>
+                                    <p class="text-xs text-stone-500">Molho, mussarela, carne de sol, queijo coalho, cebola roxa, batata palha e orégano.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-stone-800 text-sm">Chocolate</h5>
+                                    <p class="text-xs text-stone-500">Brigadeiro.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bebidas -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
+                            <h4 class="text-xl font-bold text-mescla-brown mb-4 border-b pb-2">Bebidas</h4>
+                            <ul class="space-y-3">
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Coca-Cola (250ml)</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 3,50</span>
+                                        <button onclick="addToCart('Coca-Cola (250ml)', 3.50)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Coca-Cola Zero (Lata)</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 4,00</span>
+                                        <button onclick="addToCart('Coca-Cola Zero (Lata)', 4.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Coca-Cola (Lata)</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 4,00</span>
+                                        <button onclick="addToCart('Coca-Cola (Lata)', 4.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Guaraná Antárctica (Lata)</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 4,00</span>
+                                        <button onclick="addToCart('Guaraná Antárctica (Lata)', 4.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Fanta Laranja (Lata)</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 4,00</span>
+                                        <button onclick="addToCart('Fanta Laranja (Lata)', 4.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Fanta Uva (Lata)</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 4,00</span>
+                                        <button onclick="addToCart('Fanta Uva (Lata)', 4.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Coca-Cola (1L)</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 9,00</span>
+                                        <button onclick="addToCart('Coca-Cola (1L)', 9.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Guaraná (1L)</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 7,00</span>
+                                        <button onclick="addToCart('Guaraná (1L)', 7.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Coca-Cola (2L)</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 13,00</span>
+                                        <button onclick="addToCart('Coca-Cola (2L)', 13.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Guaraná Antárctica (2L)</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 13,00</span>
+                                        <button onclick="addToCart('Guaraná Antárctica (2L)', 13.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Fanta Laranja (2L)</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 13,00</span>
+                                        <button onclick="addToCart('Fanta Laranja (2L)', 13.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm gap-2 sm:gap-0 border-b border-stone-100/50 pb-3 sm:pb-0 sm:border-none">
+                                    <span class="text-stone-600 font-medium">• Água Sem Gás (500ml)</span>
+                                    <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2">
+                                        <span class="text-mescla-orange font-bold">R$ 2,00</span>
+                                        <button onclick="addToCart('Água Sem Gás (500ml)', 2.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16">
+                <a href="#cta" class="inline-block bg-mescla-brown text-white px-8 py-4 rounded-full font-bold hover:bg-mescla-dark transition-colors shadow-lg hover:-translate-y-1 transform">
+                    Pedir Agora pelo WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Seção Prova Social -->
+    <section id="depoimentos" class="py-12 md:py-24 bg-white relative" style="background-image: radial-gradient(circle, #5c3a2110 1px, transparent 1px); background-size: 24px 24px;">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-mescla-brown mb-16">Quem Prova, Sempre Pede Mais</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Depoimento 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100">
+                    <div class="flex text-mescla-orange mb-4">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-stone-600 mb-6 italic">"Melhor hambúrguer da região! E poder pedir um açaí incrível de sobremesa no mesmo lugar fechou com chave de ouro. Recomendo demais!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white bg-gradient-to-br from-mescla-orange to-mescla-brown">JP</div>
+                        <div>
+                            <p class="font-bold text-mescla-brown">João Pedro S.</p>
+                            <p class="text-sm text-stone-500">Cliente Frequente</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100">
+                    <div class="flex text-mescla-orange mb-4">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-stone-600 mb-6 italic">"A pizza é maravilhosa, com massa levinha e muito recheio. O pedido chegou antes do prazo e muito bem embalado. Nota 10!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white bg-gradient-to-br from-mescla-orange to-mescla-brown">MF</div>
+                        <div>
+                            <p class="font-bold text-mescla-brown">Maria Fernanda</p>
+                            <p class="text-sm text-stone-500">Cliente Verificada</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 flex justify-center items-center gap-8 text-stone-400 flex-wrap">
+                <div class="text-center">
+                    <div class="text-3xl font-extrabold text-mescla-brown mb-1">+2.600</div>
+                    <div class="text-sm font-medium uppercase tracking-wider">Seguidores Fiéis</div>
+                </div>
+                <div class="w-px h-12 bg-stone-300 hidden md:block"></div>
+                <div class="text-center">
+                    <div class="text-3xl font-extrabold text-mescla-brown mb-1">5 Estrelas</div>
+                    <div class="text-sm font-medium uppercase tracking-wider">Avaliação Média</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Como Funciona -->
+    <section id="como-funciona" class="py-12 md:py-24 bg-mescla-light relative" style="background-image: radial-gradient(circle, #5c3a2110 1px, transparent 1px); background-size: 24px 24px;">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-mescla-brown mb-16">Seu Lanche Favorito em 3 Passos</h2>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center relative">
+                <!-- Linha conectora (visível apenas no desktop) -->
+                <div class="hidden md:block absolute top-12 left-[10%] right-[10%] h-0.5 bg-stone-200 z-0"></div>
+
+                <!-- Passo 1 -->
+                <div class="relative z-10 flex flex-col items-center text-center max-w-xs mb-12 md:mb-0 bg-white">
+                    <div class="w-24 h-24 bg-mescla-light text-mescla-orange rounded-full flex items-center justify-center text-3xl font-bold border-4 border-white shadow-md mb-6">
+                        1
+                    </div>
+                    <h3 class="text-xl font-bold text-mescla-brown mb-2">Escolha</h3>
+                    <p class="text-stone-600">Explore nosso cardápio variado com as melhores opções doces e salgadas.</p>
+                </div>
+
+                <!-- Passo 2 -->
+                <div class="relative z-10 flex flex-col items-center text-center max-w-xs mb-12 md:mb-0 bg-white">
+                    <div class="w-24 h-24 bg-mescla-orange text-white rounded-full flex items-center justify-center text-3xl font-bold border-4 border-white shadow-md mb-6">
+                        2
+                    </div>
+                    <h3 class="text-xl font-bold text-mescla-brown mb-2">Peça</h3>
+                    <p class="text-stone-600">Envie seu pedido rapidamente pelo WhatsApp com apenas alguns cliques.</p>
+                </div>
+
+                <!-- Passo 3 -->
+                <div class="relative z-10 flex flex-col items-center text-center max-w-xs bg-white">
+                    <div class="w-24 h-24 bg-mescla-brown text-white rounded-full flex items-center justify-center text-3xl font-bold border-4 border-white shadow-md mb-6">
+                        3
+                    </div>
+                    <h3 class="text-xl font-bold text-mescla-brown mb-2">Aproveite</h3>
+                    <p class="text-stone-600">Receba quentinho no conforto de casa e delicie-se com o sabor Mescla.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. CTA Final -->
+    <section id="cta" class="py-12 md:py-24 bg-mescla-orange text-white text-center relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-md">Pronto Para Matar Sua Fome?</h2>
+            <p class="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+                Faça seu pedido agora e experimente o verdadeiro sabor. Sem burocracia, atendimento rápido e entrega garantida.
+            </p>
+            <a href="https://api.whatsapp.com/send?phone=5583996534532" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-white text-mescla-orange px-8 py-4 rounded-full font-bold text-xl hover:bg-stone-50 transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-white/50">
+                <svg class="w-7 h-7 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                Pedir Agora pelo WhatsApp
+            </a>
+            <p class="mt-6 text-sm text-white/80">Respondemos em minutos.</p>
+        </div>
+        <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 80" fill="none" preserveAspectRatio="none" style="height: 60px;">
+          <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#3e2615"></path>
+        </svg>
+    </section>
+
+    <!-- Rodapé -->
+<footer class="bg-mescla-dark text-stone-300 py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <div class="font-extrabold text-2xl text-white tracking-tighter mb-2">MESCLA</div>
+                <p class="text-sm">Sorvetes, açaís, hambúrgueres e pizzas.</p>
+                <p class="text-sm mt-1 flex items-start justify-center md:justify-start gap-1">
+                    <span>📍</span> 
+                    <span>R. Manoel de Souza Pedrosa, 2, Jericó - PB, 58830-000</span>
+                </p>
+                <a href="https://www.google.com/maps/search/?api=1&query=Sorveteria+Mescla,+R.+Manoel+de+Souza+Pedrosa,+2,+Jericó+-+PB" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 mt-2 text-mescla-orange hover:text-white transition-colors text-sm font-medium bg-white/10 px-3 py-1.5 rounded-lg">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    Ver no Google Maps
+                </a>
+                <p class="text-sm mt-1">🕒 14:00 às 22:00 (Terça-feira fechado)</p>
+            </div>
+            <div class="text-sm text-center md:text-right space-y-3">
+                <a href="https://www.instagram.com/sorveteriamescla" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-mescla-orange hover:text-white transition-colors font-medium bg-white/10 px-4 py-2 rounded-lg">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    @sorveteriamescla
+                </a>
+                <p>&copy; <span id="copyright-year"></span> Mescla. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-24 left-1/2 -translate-x-1/2 bg-mescla-brown text-white px-6 py-3 rounded-xl shadow-2xl z-[60] opacity-0 pointer-events-none transform -translate-y-4 flex items-center gap-2">
+        <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <span id="toast-text" class="font-medium text-sm"></span>
+    </div>
+
+    <!-- Choice Modal (sabores de pizza, sabor de sorvete, alvo do adicional) -->
+    <div id="choice-overlay" class="fixed inset-0 bg-black/50 z-50 hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm" onclick="closeChoiceModal()"></div>
+    <div id="choice-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[85vh] flex flex-col overflow-hidden">
+            <div class="p-6 bg-mescla-dark text-white flex justify-between items-center">
+                <h2 id="choice-modal-title" class="text-xl font-bold"></h2>
+                <button onclick="closeChoiceModal()" class="text-stone-300 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto flex-1 bg-stone-50">
+                <p id="choice-modal-hint" class="text-sm text-stone-500 mb-4"></p>
+                <div id="choice-list" class="grid sm:grid-cols-2 gap-2"></div>
+            </div>
+            <div class="p-6 bg-white border-t border-stone-100">
+                <div class="flex justify-between items-center mb-4">
+                    <span id="choice-modal-counter" class="text-sm font-semibold text-stone-600">Selecionados: <span id="choice-selected-count">0</span>/<span id="choice-max-count">2</span></span>
+                    <span class="text-xl font-black text-mescla-orange" id="choice-modal-price"></span>
+                </div>
+                <button onclick="confirmChoice()" class="w-full bg-mescla-orange hover:bg-orange-500 text-white font-bold py-3 rounded-xl transition-colors shadow-md">
+                    Adicionar ao Carrinho
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart FAB -->
+    <button id="cart-fab" onclick="toggleCart()" class="fixed bottom-6 right-6 bg-mescla-brown hover:bg-mescla-dark text-white pl-4 pr-5 py-3 rounded-full shadow-2xl transition-transform hover:scale-105 z-40 hidden flex items-center gap-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+        <span id="cart-badge" class="bg-mescla-orange text-white text-xs font-bold px-2 py-0.5 rounded-full">0</span>
+        <span class="w-px h-4 bg-white/30"></span>
+        <span id="cart-fab-total" class="font-bold text-sm">R$ 0,00</span>
+    </button>
+
+    <!-- Cart Modal -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/50 z-50 hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm" onclick="toggleCart()"></div>
+    <div id="cart-modal" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col">
+        <div class="p-6 bg-mescla-dark text-white flex justify-between items-center">
+            <h2 class="text-2xl font-bold flex items-center gap-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                Seu Pedido
+            </h2>
+            <div class="flex items-center gap-4">
+                <button onclick="clearCart()" class="text-sm text-red-400 hover:text-red-300 underline font-semibold">Esvaziar</button>
+                <button onclick="toggleCart()" class="text-stone-300 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto p-6 bg-stone-50">
+            <div id="cart-items" class="space-y-4">
+                <!-- Items will be injected here -->
+                <p class="text-center text-stone-500 mt-10">Seu carrinho está vazio.</p>
+            </div>
+            
+            <div class="mt-8">
+                <label for="cart-notes" class="block text-sm font-bold text-mescla-brown mb-2">Observações (Sabores, Adicionais, Endereço):</label>
+                <textarea id="cart-notes" rows="4" class="w-full border-stone-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-mescla-orange outline-none resize-none" placeholder="Ex: A pizza é metade calabresa, moro na Rua X, número Y..."></textarea>
+            </div>
+        </div>
+        
+        <div class="p-6 bg-white border-t border-stone-100 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+            <div class="flex justify-between items-center mb-6">
+                <span class="text-stone-600 font-bold text-lg">Total</span>
+                <span id="cart-total" class="text-2xl font-black text-mescla-orange">R$ 0,00</span>
+            </div>
+            <button id="btn-send-order" onclick="sendOrder()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-xl text-lg flex justify-center items-center gap-2 transition-colors shadow-lg">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                Enviar Pedido
+            </button>
+        </div>
+    </div>
+
+    
+    <!-- Cart Logic -->
+    <script>
+        let cart = [];
+        let lastFocusedElement = null;
+        const waNumber = "5583996534532";
+        
+        function formatMoney(amount) {
+            return amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        // === Toast notification ===
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const text = document.getElementById('toast-text');
+            text.textContent = message;
+            toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+                toast.classList.remove('opacity-100', 'translate-y-0');
+            }, 2000);
+        }
+
+        // === Adicional linked to burger ===
+        function addAdicional(name, price) {
+            const burgers = cart.filter(item => item.isBurger);
+
+            if (burgers.length === 0) {
+                alert('Adicione um hambúrguer ao carrinho antes de escolher o adicional "' + name + '".');
+                return;
+            }
+            if (burgers.length === 1) {
+                addToCart(name + ' (' + burgers[0].name + ')', price);
+                return;
+            }
+
+            openChoiceModal({
+                title: 'Adicional: ' + name,
+                hint: 'Para qual hambúrguer é esse adicional?',
+                options: burgers.map(b => b.name),
+                mode: 'single',
+                max: 1,
+                priceText: formatMoney(price),
+                onConfirm: (selected) => addToCart(name + ' (' + selected[0] + ')', price)
+            });
+        }
+
+        // === Sobremesa com sabor de sorvete ===
+        const sorveteSabores = [
+            'Abacaxi', 'Brownie', 'Charge', 'Ninho com Nutella',
+            'Cheesecake de Morango', 'Creme com Passas', 'Chocolate',
+            'Capuccino', 'Doce de Leite', 'Morango', 'Nata Uva',
+            'Nata Goiaba', 'Oreo', 'Ouro Branco', 'Pavê',
+            'Sangria de Morango', 'Sensação Trufado', 'Sonho de Valsa',
+            'Torta Limão', 'Flocos', 'Mousse de Maracujá'
+        ];
+        function addWithFlavor(name, price) {
+            openChoiceModal({
+                title: name,
+                hint: 'Escolha o sabor de sorvete:',
+                options: sorveteSabores,
+                mode: 'single',
+                max: 1,
+                priceText: formatMoney(price),
+                onConfirm: (selected) => addToCart(name + ' (Sorvete: ' + selected[0] + ')', price)
+            });
+        }
+
+        const poteTradicionalSabores = [
+            'Abacaxi + Cocada', 'Abacaxi + Nata Goiaba', 'Chocolate + Morango',
+            'Duo Chocolate', 'Flocos + Creme c/ Passas', 'Nata Uva',
+            'Paçoca + Nata Goiaba', 'Sonho de Valsa', 'Oreo + Morango'
+        ];
+
+        function addPoteTradicional(name, price) {
+            openChoiceModal({
+                title: name,
+                hint: 'Escolha o sabor do pote:',
+                options: poteTradicionalSabores,
+                mode: 'single',
+                max: 1,
+                priceText: formatMoney(price),
+                onConfirm: (selected) => addToCart(name + ' (' + selected[0] + ')', price)
+            });
+        }
+
+        const potePremiumSabores = [
+            'Charge', 'Brownie', 'Doce de Leite', 'Ninho com Nutella',
+            'Sensação Trufado', 'Floresta Negra', 'Mousse de Maracujá', 'Ouro Branco'
+        ];
+
+        function addPotePremium(name, price) {
+            openChoiceModal({
+                title: name,
+                hint: 'Escolha o sabor do pote Premium:',
+                options: potePremiumSabores,
+                mode: 'single',
+                max: 1,
+                priceText: formatMoney(price),
+                onConfirm: (selected) => addToCart(name + ' (' + selected[0] + ')', price)
+            });
+        }
+
+        // === Choice Modal genérico (single/multi-select) ===
+        const pizzaFlavors = [
+            'Frango com Cheddar', 'Frango com Catupiry', 'Calabresa', 'Frango',
+            'Calabresa Cremosa', 'Mussarela', 'Portuguesa', 'Quatro Queijos',
+            'Chocolate Especial', 'Nordestina', 'Chocolate'
+        ];
+        const pizzaMaxFlavors = { M: 2, G: 2, F: 4 };
+        const pizzaSizeLabel = { M: 'Média', G: 'Grande', F: 'Família' };
+
+        function openPizzaModal(size, price) {
+            const max = pizzaMaxFlavors[size];
+            openChoiceModal({
+                title: 'Monte sua Pizza (' + pizzaSizeLabel[size] + ')',
+                hint: max > 2
+                    ? 'Escolha até ' + max + ' sabores para a pizza Família.'
+                    : 'Escolha até 2 sabores para essa pizza.',
+                options: pizzaFlavors,
+                mode: 'multi',
+                max: max,
+                priceText: formatMoney(price),
+                onConfirm: (selected) => addToCart('Pizza ' + size + ' - ' + selected.join(' + '), price)
+            });
+        }
+
+        let choiceState = null;
+
+        function openChoiceModal(config) {
+            lastFocusedElement = document.activeElement;
+            choiceState = {
+                mode: config.mode,
+                max: config.max || 1,
+                selected: [],
+                options: config.options,
+                onConfirm: config.onConfirm
+            };
+
+            document.getElementById('choice-modal-title').textContent = config.title;
+            document.getElementById('choice-modal-hint').textContent = config.hint;
+            document.getElementById('choice-modal-price').textContent = config.priceText || '';
+            document.getElementById('choice-max-count').textContent = choiceState.max;
+            document.getElementById('choice-modal-counter').style.display = choiceState.mode === 'multi' ? 'inline' : 'none';
+
+            renderChoiceList();
+
+            const overlay = document.getElementById('choice-overlay');
+            const modal = document.getElementById('choice-modal');
+            overlay.classList.remove('hidden');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+            setTimeout(() => { const firstInput = document.querySelector('#choice-modal input, #choice-modal button'); if(firstInput) firstInput.focus(); }, 100);
+        }
+
+        function closeChoiceModal() {
+            const overlay = document.getElementById('choice-overlay');
+            const modal = document.getElementById('choice-modal');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+            choiceState = null;
+            if(lastFocusedElement) { lastFocusedElement.focus(); lastFocusedElement = null; }
+        }
+
+        function renderChoiceList() {
+            const container = document.getElementById('choice-list');
+            const isMulti = choiceState.mode === 'multi';
+            const atMax = isMulti && choiceState.selected.length >= choiceState.max;
+
+            container.innerHTML = choiceState.options.map(opt => {
+                const checked = choiceState.selected.includes(opt);
+                const disabled = isMulti && !checked && atMax;
+                const inputType = isMulti ? 'checkbox' : 'radio';
+                const safeOpt = opt.replace(/'/g, "\\'");
+                return `
+                    <label class="flex items-center gap-2 p-2 rounded-lg border text-sm transition-colors ${checked ? 'border-mescla-orange bg-orange-50' : 'border-stone-200'} ${disabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer hover:bg-stone-100'}">
+                        <input type="${inputType}" name="choice-option" ${checked ? 'checked' : ''} ${disabled ? 'disabled' : ''} onchange="toggleChoice('${safeOpt}')" class="accent-mescla-orange">
+                        <span>${opt}</span>
+                    </label>
+                `;
+            }).join('');
+
+            if (isMulti) {
+                document.getElementById('choice-selected-count').textContent = choiceState.selected.length;
+            }
+        }
+
+        function toggleChoice(opt) {
+            if (!choiceState) return;
+            if (choiceState.mode === 'single') {
+                choiceState.selected = [opt];
+            } else {
+                const idx = choiceState.selected.indexOf(opt);
+                if (idx >= 0) {
+                    choiceState.selected.splice(idx, 1);
+                } else if (choiceState.selected.length < choiceState.max) {
+                    choiceState.selected.push(opt);
+                }
+            }
+            renderChoiceList();
+        }
+
+        function confirmChoice() {
+            if (!choiceState || choiceState.selected.length === 0) {
+                alert('Escolha pelo menos uma opção antes de adicionar.');
+                return;
+            }
+            choiceState.onConfirm(choiceState.selected);
+            closeChoiceModal();
+        }
+
+        function addToCart(name, price, isBurger = false) {
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, quantity: 1, isBurger });
+            }
+            updateCartUI();
+            showToast(name + ' adicionado!');
+            
+            const fab = document.getElementById('cart-fab');
+            fab.classList.remove('hidden');
+            fab.classList.add('animate-bounce');
+            setTimeout(() => fab.classList.remove('animate-bounce'), 1000);
+        }
+
+        function updateQuantity(index, change) {
+            if (cart[index]) {
+                cart[index].quantity += change;
+                if (cart[index].quantity <= 0) {
+                    cart.splice(index, 1);
+                }
+                updateCartUI();
+            }
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items');
+            const badge = document.getElementById('cart-badge');
+            const totalEl = document.getElementById('cart-total');
+            const fab = document.getElementById('cart-fab');
+            
+            let total = 0;
+            let totalItems = 0;
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-center text-stone-500 mt-10">Seu carrinho está vazio.</p>';
+                fab.classList.add('hidden');
+                const sendBtn = document.getElementById('btn-send-order');
+                if(sendBtn) { sendBtn.disabled = true; sendBtn.classList.add('opacity-50', 'cursor-not-allowed'); }
+            } else {
+                fab.classList.remove('hidden');
+                const sendBtn = document.getElementById('btn-send-order');
+                if(sendBtn) { sendBtn.disabled = false; sendBtn.classList.remove('opacity-50', 'cursor-not-allowed'); }
+                container.innerHTML = cart.map((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    totalItems += item.quantity;
+                    
+                    return `
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
+                            <div class="flex-1">
+                                <h5 class="font-bold text-mescla-brown text-sm mb-1">${item.name}</h5>
+                                <p class="text-mescla-orange font-semibold text-sm">${formatMoney(itemTotal)}</p>
+                            </div>
+                            <div class="flex items-center justify-center sm:justify-end w-full sm:w-auto mt-3 sm:mt-0 bg-stone-50 rounded-lg p-1 border border-stone-200">
+                                <button onclick="updateQuantity(${index}, -1)" class="w-8 h-8 flex items-center justify-center text-stone-500 hover:bg-stone-200 rounded-md font-bold transition-colors">-</button>
+                                <span class="font-bold text-stone-700 w-4 text-center text-sm">${item.quantity}</span>
+                                <button onclick="updateQuantity(${index}, 1)" class="w-8 h-8 flex items-center justify-center text-stone-500 hover:bg-stone-200 rounded-md font-bold transition-colors">+</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            badge.innerText = totalItems;
+            totalEl.innerText = formatMoney(total);
+            const fabTotal = document.getElementById('cart-fab-total');
+            if (fabTotal) fabTotal.innerText = formatMoney(total);
+        }
+
+        function toggleCart() {
+            const overlay = document.getElementById('cart-overlay');
+            const modal = document.getElementById('cart-modal');
+            
+            if (modal.classList.contains('translate-x-full')) {
+                overlay.classList.remove('hidden');
+                setTimeout(() => {
+                    overlay.classList.remove('opacity-0');
+                    modal.classList.remove('translate-x-full');
+                }, 10);
+                lastFocusedElement = document.activeElement;
+                setTimeout(() => { const firstInput = document.querySelector('#cart-modal textarea, #cart-modal button'); if(firstInput) firstInput.focus(); }, 100);
+            } else {
+                overlay.classList.add('opacity-0');
+                modal.classList.add('translate-x-full');
+                setTimeout(() => { 
+                    overlay.classList.add('hidden');
+                    if(lastFocusedElement) { lastFocusedElement.focus(); lastFocusedElement = null; }
+                }, 300);
+            }
+        }
+
+        function sendOrder() {
+            if (cart.length === 0) {
+                alert("Seu carrinho está vazio!");
+                return;
+            }
+            
+            const notesEl = document.getElementById('cart-notes');
+            const notes = notesEl.value.trim();
+            if (!notes) {
+                notesEl.classList.add('ring-2', 'ring-red-500');
+                showToast('Por favor, informe seu endereço e observações!');
+                setTimeout(() => notesEl.classList.remove('ring-2', 'ring-red-500'), 3000);
+                notesEl.focus();
+                return;
+            }
+            
+            let total = 0;
+            let text = "Olá! Gostaria de fazer o seguinte pedido:\n\n";
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                text += `*${item.quantity}x ${item.name}* (${formatMoney(itemTotal)})\n`;
+            });
+            
+            text += `\n*Total: ${formatMoney(total)}*\n\n`;
+            
+            const notesText = document.getElementById('cart-notes').value.trim();
+            if (notesText) {
+                text += `*Observações / Endereço:*\n${notesText}\n`;
+            }
+            
+            const encodedText = encodeURIComponent(text);
+            showToast('Pedido enviado! Confirme o envio no WhatsApp que abriu 🎉');
+            window.open('https://api.whatsapp.com/send?phone=' + waNumber + '&text=' + encodedText, '_blank');
+            cart = [];
+            saveCart();
+            updateCartUI();
+            toggleCart();
+        }
+
+        
+        // === Local Storage & Limpar ===
+        function saveCart() {
+            localStorage.setItem('mescla_cart', JSON.stringify(cart));
+        }
+        function loadCart() {
+            const saved = localStorage.getItem('mescla_cart');
+            if (saved) {
+                try {
+                    cart = JSON.parse(saved);
+                    updateCartUI();
+                } catch(e) {}
+            }
+        }
+        function clearCart() {
+            if(cart.length > 0 && confirm("Tem certeza que deseja esvaziar todo o carrinho?")) {
+                cart = [];
+                saveCart();
+                updateCartUI();
+            }
+        }
+
+        // === Milk Shake ===
+        const milkShakeFlavors = ['Morango', 'Chocolate', 'Ovomaltine', 'Baunilha', 'Flocos', 'Ninho', 'Paçoca'];
+        function addMilkShake(name, price) {
+            openChoiceModal({
+                title: name,
+                hint: 'Escolha o sabor do seu Milk Shake:',
+                options: milkShakeFlavors,
+                mode: 'single',
+                max: 1,
+                priceText: formatMoney(price),
+                onConfirm: (selected) => addToCart(name + ' (' + selected[0] + ')', price)
+            });
+        }
+
+        // === Açaí Tigela ===
+        const acaiComplements = [
+            'Creme de Ninho', 'Granola', 'Amendoim triturado', 'Leite em pó', 
+            'Farinha Láctea', 'Kiwi', 'M&M', 'Banana', 'Amendoim inteiro', 
+            'Uva', 'Leite condensado', 'Paçoca', 'Morango'
+        ];
+        function addAcai(name, price) {
+            openChoiceModal({
+                title: name,
+                hint: 'Escolha até 3 complementos (Inclusos):',
+                options: acaiComplements,
+                mode: 'multi',
+                max: 3,
+                priceText: formatMoney(price),
+                onConfirm: (selected) => {
+                    const comp = selected.length > 0 ? selected.join(', ') : 'Sem complementos';
+                    addToCart(name + ' (' + comp + ')', price);
+                }
+            });
+        }
+
+        // === Cascão Cesta ===
+        function addCascao(price) {
+            const sorvetes = cart.filter(item => item.name.includes('Sorvete na Bola'));
+            if (sorvetes.length === 0) {
+                alert('Adicione primeiro uma "Bola de Sorvete" ao carrinho para depois adicionar a cesta.');
+                return;
+            }
+            if (sorvetes.length === 1) {
+                addToCart('Cascão Cesta (Para: ' + sorvetes[0].name + ')', price);
+                return;
+            }
+            openChoiceModal({
+                title: 'Cascão Cesta',
+                hint: 'Para qual bola de sorvete é essa cesta?',
+                options: sorvetes.map(s => s.name),
+                mode: 'single',
+                max: 1,
+                priceText: formatMoney(price),
+                onConfirm: (selected) => addToCart('Cascão Cesta (Para: ' + selected[0] + ')', price)
+            });
+        }
+
+        
+        
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const choiceModal = document.getElementById('choice-modal');
+                const cartModal = document.getElementById('cart-modal');
+                if (choiceModal && !choiceModal.classList.contains('hidden')) {
+                    closeChoiceModal();
+                } else if (cartModal && !cartModal.classList.contains('translate-x-full')) {
+                    toggleCart();
+                }
+            }
+        });
+    
+        // === Mobile menu ===
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const iconOpen = document.getElementById('menu-icon-open');
+            const iconClose = document.getElementById('menu-icon-close');
+            menu.classList.toggle('hidden');
+            iconOpen.classList.toggle('hidden');
+            iconClose.classList.toggle('hidden');
+        }
+        function closeMobileMenu() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+            document.getElementById('menu-icon-open').classList.remove('hidden');
+            document.getElementById('menu-icon-close').classList.add('hidden');
+        }
+
+        // === Scroll animations (Idea 8) ===
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add fade-up class to sections
+            const sections = document.querySelectorAll('section, header');
+            sections.forEach(s => {
+                s.querySelectorAll('.grid > div, .flex > div, .space-y-4 > div').forEach(el => {
+                    if (!el.closest('#cart-modal') && !el.closest('#mobile-menu') && !el.closest('#choice-modal') && !el.closest('nav')) {
+                        el.classList.add('fade-up');
+                    }
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+            loadCart();
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+
+</html>
