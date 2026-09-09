@@ -13,68 +13,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        mescla: {
-                            brown: '#5c3a21', // Cor Primária
-                            orange: '#f38b2b', // Cor Secundária
-                            dark: '#3e2615',
-                            light: '#fdf8f4',
-                            surface: '#ffffff'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- CSS compilado (Tailwind + estilos customizados) -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <link rel="canonical" href="https://sorveteriamescla.com.br">
 
     <!-- Open Graph / WhatsApp Preview -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Mescla | Sabor Inconfundível">
     <meta property="og:description" content="Sorvetes, açaís, hambúrgueres e pizzas. O sabor inconfundível para matar sua fome. Faça seu pedido agora!">
     <meta property="og:image" content="https://sorveteriamescla.com.br/img/hero_new.jpg">
+    <meta property="og:image:width" content="666">
+    <meta property="og:image:height" content="1024">
     <meta property="og:url" content="https://sorveteriamescla.com.br">
     <meta name="twitter:card" content="summary_large_image">
-
-    <style>
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* Toast */
-        #toast {
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-    
-        /* Imagens mais atraentes */
-        .food-image {
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
-            filter: contrast(1.05) saturate(1.15) brightness(1.02);
-        }
-        .group:hover .food-image {
-            transform: scale(1.08) rotate(-1deg);
-            filter: contrast(1.1) saturate(1.25) brightness(1.05);
-        }
-        .hero-glow {
-            box-shadow: 0 20px 50px -10px rgba(243, 139, 43, 0.3), 0 0 30px rgba(92, 58, 33, 0.2);
-        }
-        .image-backdrop {
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.03);
-        }
-    </style>
+    <meta name="twitter:image" content="https://sorveteriamescla.com.br/img/hero_new.jpg">
 
     <script type="application/ld+json">
     {
@@ -183,7 +136,7 @@
                 Nós temos a solução perfeita
             </div>
         </div>
-        <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 80" fill="none" preserveAspectRatio="none" style="height: 60px;">
+        <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 80" fill="none" preserveAspectRatio="none" style="height: 60px;" aria-hidden="true">
           <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#FFFFFF"></path>
         </svg>
     </section>
@@ -237,7 +190,10 @@
                 <div>
                     <h3 class="text-2xl font-bold text-mescla-orange border-b-2 border-mescla-orange/30 pb-2 mb-8 block w-fit mx-auto">🍧 Sobremesas Irresistíveis</h3>
                     <div class="aspect-video w-full max-w-md mx-auto rounded-xl overflow-hidden shadow-sm mb-8">
-                        <img src="img/categoria-sobremesas.jpg" alt="Taça de sorvete com chantilly e cereja" class="w-full h-full object-cover" loading="lazy">
+                        <picture>
+                            <source srcset="img/categoria-sobremesas.webp" type="image/webp">
+                            <img src="img/categoria-sobremesas.jpg" alt="Taça de sorvete com chantilly e cereja" class="w-full h-full object-cover" loading="lazy">
+                        </picture>
                     </div>
                     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         
@@ -408,18 +364,21 @@
                 <div>
                     <h3 class="text-2xl font-bold text-mescla-orange border-b-2 border-mescla-orange/30 pb-2 mb-8 block w-fit mx-auto">🍦 Sorvetes & Sabores</h3>
                     <div class="aspect-video w-full max-w-md mx-auto rounded-xl overflow-hidden shadow-sm mb-8">
-                        <img src="img/categoria-sorvetes.jpg" alt="Casquinha de sorvete com três sabores" class="w-full h-full object-cover" loading="lazy">
+                        <picture>
+                            <source srcset="img/categoria-sorvetes.webp" type="image/webp">
+                            <img src="img/categoria-sorvetes.jpg" alt="Casquinha de sorvete com três sabores" class="w-full h-full object-cover" loading="lazy">
+                        </picture>
                     </div>
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6 md:p-8">
                             <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-6 gap-4 sm:gap-0">
                                 <div>
                                     <h4 class="text-2xl font-bold text-mescla-brown">Na Bola</h4>
-                                    <p class="text-stone-500 text-sm mt-1">Cascão Cesta: + R$ 2,00 <button onclick="addCascao(2.00)" class="ml-2 bg-mescla-orange text-white p-1 rounded-full hover:bg-orange-500 transition-colors shadow-sm" title="Adicionar Cascão"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></button></p>
+                                    <p class="text-stone-500 text-sm mt-1">Cascão Cesta: + R$ 2,00 <button onclick="addCascao(2.00)" class="ml-2 bg-mescla-brown hover:bg-mescla-dark text-white p-1 rounded-full transition-colors shadow-sm" title="Adicionar Cascão"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></button></p>
                                 </div>
                                 <div class="flex items-center gap-2">
             <span class="bg-mescla-orange text-white font-bold px-4 py-2 rounded-full">R$ 4,00 <span class="text-sm font-normal">/bola</span></span>
-            <button onclick="addWithFlavor('Sorvete na Bola', 4.00)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-2 rounded-full transition-colors shadow-sm" title='Adicionar'>
+            <button onclick="addWithFlavor('Sorvete na Bola', 4.00, true)" class="bg-mescla-brown hover:bg-mescla-dark text-white p-2 rounded-full transition-colors shadow-sm" title='Adicionar'>
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             </button>
         </div>
@@ -503,7 +462,10 @@
                 <div>
                     <h3 class="text-2xl font-bold text-mescla-orange border-b-2 border-mescla-orange/30 pb-2 mb-8 block w-fit mx-auto">🥤 Milk Shakes & Açaís</h3>
                     <div class="aspect-video w-full max-w-md mx-auto rounded-xl overflow-hidden shadow-sm mb-8">
-                        <img src="img/categoria-milkshakes.jpg" alt="Milk shake com chantilly e tigela de açaí" class="w-full h-full object-cover" loading="lazy">
+                        <picture>
+                            <source srcset="img/categoria-milkshakes.webp" type="image/webp">
+                            <img src="img/categoria-milkshakes.jpg" alt="Milk shake com chantilly e tigela de açaí" class="w-full h-full object-cover" loading="lazy">
+                        </picture>
                     </div>
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
@@ -589,7 +551,10 @@
                 <div>
                     <h3 class="text-2xl font-bold text-mescla-orange border-b-2 border-mescla-orange/30 pb-2 mb-8 block w-fit mx-auto">🍔 Hambúrgueres</h3>
                     <div class="aspect-video w-full max-w-md mx-auto rounded-xl overflow-hidden shadow-sm mb-8">
-                        <img src="img/categoria-hamburgueres.jpg" alt="Hambúrguer artesanal em corte transversal" class="w-full h-full object-cover" loading="lazy">
+                        <picture>
+                            <source srcset="img/categoria-hamburgueres.webp" type="image/webp">
+                            <img src="img/categoria-hamburgueres.jpg" alt="Hambúrguer artesanal em corte transversal" class="w-full h-full object-cover" loading="lazy">
+                        </picture>
                     </div>
                     <div class="grid md:grid-cols-3 gap-8">
                         <div class="md:col-span-2 space-y-4">
@@ -770,7 +735,10 @@
                 <div>
                     <h3 class="text-2xl font-bold text-mescla-orange border-b-2 border-mescla-orange/30 pb-2 mb-8 block w-fit mx-auto">🍕 Pizzas & Bebidas</h3>
                     <div class="aspect-video w-full max-w-md mx-auto rounded-xl overflow-hidden shadow-sm mb-8">
-                        <img src="img/categoria-pizzas.jpg" alt="Fatia de pizza ao lado de um copo de refrigerante" class="w-full h-full object-cover" loading="lazy">
+                        <picture>
+                            <source srcset="img/categoria-pizzas.webp" type="image/webp">
+                            <img src="img/categoria-pizzas.jpg" alt="Fatia de pizza ao lado de um copo de refrigerante" class="w-full h-full object-cover" loading="lazy">
+                        </picture>
                     </div>
                     <div class="grid md:grid-cols-3 gap-8">
                         <div class="md:col-span-2 bg-white rounded-2xl shadow-sm border border-stone-100 p-6 md:p-8">
@@ -1087,7 +1055,7 @@
             </a>
             <p class="mt-6 text-sm text-white/80">Respondemos em minutos.</p>
         </div>
-        <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 80" fill="none" preserveAspectRatio="none" style="height: 60px;">
+        <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 80" fill="none" preserveAspectRatio="none" style="height: 60px;" aria-hidden="true">
           <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#3e2615"></path>
         </svg>
     </section>
@@ -1132,7 +1100,7 @@
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[85vh] flex flex-col overflow-hidden">
             <div class="p-6 bg-mescla-dark text-white flex justify-between items-center">
                 <h2 id="choice-modal-title" class="text-xl font-bold"></h2>
-                <button onclick="closeChoiceModal()" class="text-stone-300 hover:text-white">
+                <button onclick="closeChoiceModal()" class="text-stone-300 hover:text-white" aria-label="Fechar">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
@@ -1153,7 +1121,7 @@
     </div>
 
     <!-- Cart FAB -->
-    <button id="cart-fab" onclick="toggleCart()" class="fixed bottom-6 right-6 bg-mescla-brown hover:bg-mescla-dark text-white pl-4 pr-5 py-3 rounded-full shadow-2xl transition-transform hover:scale-105 z-40 hidden flex items-center gap-2">
+    <button id="cart-fab" onclick="toggleCart()" aria-label="Abrir carrinho" class="fixed bottom-6 right-6 bg-mescla-brown hover:bg-mescla-dark text-white pl-4 pr-5 py-3 rounded-full shadow-2xl transition-transform hover:scale-105 z-40 hidden flex items-center gap-2">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
         <span id="cart-badge" class="bg-mescla-orange text-white text-xs font-bold px-2 py-0.5 rounded-full">0</span>
         <span class="w-px h-4 bg-white/30"></span>
@@ -1170,7 +1138,7 @@
             </h2>
             <div class="flex items-center gap-4">
                 <button onclick="clearCart()" class="text-sm text-red-400 hover:text-red-300 underline font-semibold">Esvaziar</button>
-                <button onclick="toggleCart()" class="text-stone-300 hover:text-white">
+                <button onclick="toggleCart()" class="text-stone-300 hover:text-white" aria-label="Fechar carrinho">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
@@ -1257,7 +1225,7 @@
             'Sangria de Morango', 'Sensação Trufado', 'Sonho de Valsa',
             'Torta Limão', 'Flocos', 'Mousse de Maracujá'
         ];
-        function addWithFlavor(name, price) {
+        function addWithFlavor(name, price, isSorveteBola = false) {
             openChoiceModal({
                 title: name,
                 hint: 'Escolha o sabor de sorvete:',
@@ -1265,7 +1233,7 @@
                 mode: 'single',
                 max: 1,
                 priceText: formatMoney(price),
-                onConfirm: (selected) => addToCart(name + ' (Sorvete: ' + selected[0] + ')', price)
+                onConfirm: (selected) => addToCart(name + ' (Sorvete: ' + selected[0] + ')', price, false, isSorveteBola)
             });
         }
 
@@ -1417,12 +1385,12 @@
             closeChoiceModal();
         }
 
-        function addToCart(name, price, isBurger = false) {
+        function addToCart(name, price, isBurger = false, isSorveteBola = false) {
             const existingItem = cart.find(item => item.name === name);
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
-                cart.push({ name, price, quantity: 1, isBurger });
+                cart.push({ name, price, quantity: 1, isBurger, isSorveteBola });
             }
             updateCartUI();
             showToast(name + ' adicionado!');
@@ -1473,9 +1441,9 @@
                                 <p class="text-mescla-orange font-semibold text-sm">${formatMoney(itemTotal)}</p>
                             </div>
                             <div class="flex items-center justify-center sm:justify-end w-full sm:w-auto mt-3 sm:mt-0 bg-stone-50 rounded-lg p-1 border border-stone-200">
-                                <button onclick="updateQuantity(${index}, -1)" class="w-8 h-8 flex items-center justify-center text-stone-500 hover:bg-stone-200 rounded-md font-bold transition-colors">-</button>
+                                <button onclick="updateQuantity(${index}, -1)" aria-label="Diminuir quantidade" class="w-8 h-8 flex items-center justify-center text-stone-500 hover:bg-stone-200 rounded-md font-bold transition-colors">-</button>
                                 <span class="font-bold text-stone-700 w-4 text-center text-sm">${item.quantity}</span>
-                                <button onclick="updateQuantity(${index}, 1)" class="w-8 h-8 flex items-center justify-center text-stone-500 hover:bg-stone-200 rounded-md font-bold transition-colors">+</button>
+                                <button onclick="updateQuantity(${index}, 1)" aria-label="Aumentar quantidade" class="w-8 h-8 flex items-center justify-center text-stone-500 hover:bg-stone-200 rounded-md font-bold transition-colors">+</button>
                             </div>
                         </div>
                     `;
@@ -1610,7 +1578,7 @@
 
         // === Cascão Cesta ===
         function addCascao(price) {
-            const sorvetes = cart.filter(item => item.name.includes('Sorvete na Bola'));
+            const sorvetes = cart.filter(item => item.isSorveteBola);
             if (sorvetes.length === 0) {
                 alert('Adicione primeiro uma "Bola de Sorvete" ao carrinho para depois adicionar a cesta.');
                 return;
@@ -1667,7 +1635,7 @@
             const sections = document.querySelectorAll('section, header');
             sections.forEach(s => {
                 s.querySelectorAll('.grid > div, .flex > div, .space-y-4 > div').forEach(el => {
-                    if (!el.closest('#cart-modal') && !el.closest('#mobile-menu') && !el.closest('#choice-modal') && !el.closest('nav')) {
+                    if (!el.closest('#cart-modal') && !el.closest('#mobile-menu') && !el.closest('#choice-modal') && !el.closest('nav') && !el.parentElement.closest('.fade-up')) {
                         el.classList.add('fade-up');
                     }
                 });
